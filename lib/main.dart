@@ -5,7 +5,6 @@ import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -68,9 +67,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final RoundedLoadingButtonController _btnController =
-      RoundedLoadingButtonController();
-
   String? _resultString;
   Map _resultDict = {
     "label": "None",
@@ -117,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: const Text("Camera"),
             onTap: () async {
               final XFile? pickedFile =
-                  await ImagePicker().pickImage(source: ImageSource.camera);
+              await ImagePicker().pickImage(source: ImageSource.camera);
 
               if (pickedFile != null) {
                 // Clear result of previous inference as soon as new image is selected
@@ -132,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 setState(() {
                   imageURI = imgFile;
-                  _btnController.stop();
+                  // _btnController.stop();
                   isClassifying = false;
                 });
                 Navigator.pop(context);
@@ -144,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: const Text("Gallery"),
             onTap: () async {
               final XFile? pickedFile =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
+              await ImagePicker().pickImage(source: ImageSource.gallery);
 
               if (pickedFile != null) {
                 // Clear result of previous inference as soon as new image is selected
@@ -156,9 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 final imgFile = File(croppedFile.path);
 
                 setState(
-                  () {
+                      () {
                     imageURI = imgFile;
-                    _btnController.stop();
+                    // _btnController.stop();
                     isClassifying = false;
                   },
                 );
@@ -175,66 +171,66 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = imgList
         .map((item) => Container(
-              margin: const EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  child: Stack(
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () async {
-                          context.loaderOverlay.show();
+      margin: const EdgeInsets.all(5.0),
+      child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          child: Stack(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () async {
+                  context.loaderOverlay.show();
 
-                          String imgUrl = imgList[imgList.indexOf(item)];
+                  String imgUrl = imgList[imgList.indexOf(item)];
 
-                          final imgFile = await getImage(imgUrl);
+                  final imgFile = await getImage(imgUrl);
 
-                          setState(() {
-                            imageURI = imgFile;
-                            _btnController.stop();
-                            isClassifying = false;
-                            clearInferenceResults();
-                          });
-                          context.loaderOverlay.hide();
-                        },
-                        child: CachedNetworkImage(
-                          imageUrl: item,
-                          fit: BoxFit.fill,
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(200, 0, 0, 0),
-                                Color.fromARGB(0, 0, 0, 0)
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          child: Text(
-                            'GT: ${imgList[imgList.indexOf(item)].split('/').reversed.elementAt(1)}', // get the class name from url
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-            ))
+                  setState(() {
+                    imageURI = imgFile;
+                    // _btnController.stop();
+                    isClassifying = false;
+                    clearInferenceResults();
+                  });
+                  context.loaderOverlay.hide();
+                },
+                child: CachedNetworkImage(
+                  imageUrl: item,
+                  fit: BoxFit.fill,
+                  placeholder: (context, url) =>
+                  const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) =>
+                  const Icon(Icons.error),
+                ),
+              ),
+              Positioned(
+                bottom: 0.0,
+                left: 0.0,
+                right: 0.0,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(200, 0, 0, 0),
+                        Color.fromARGB(0, 0, 0, 0)
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 20.0),
+                  child: Text(
+                    'GT: ${imgList[imgList.indexOf(item)].split('/').reversed.elementAt(1)}', // get the class name from url
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )),
+    ))
         .toList();
 
     return LoaderOverlay(
@@ -286,30 +282,30 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               imageURI == null
                   ? SizedBox(
-                      height: 200,
-                      child: EmptyWidget(
-                        image: null,
-                        packageImage: PackageImage.Image_3,
-                        title: 'No image',
-                        subTitle: 'Select an image',
-                        titleTextStyle: const TextStyle(
-                          fontSize: 15,
-                          color: Color(0xff9da9c7),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        subtitleTextStyle: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xffabb8d6),
-                        ),
-                      ),
-                    )
+                height: 200,
+                child: EmptyWidget(
+                  image: null,
+                  packageImage: PackageImage.Image_3,
+                  title: 'No image',
+                  subTitle: 'Select an image',
+                  titleTextStyle: const TextStyle(
+                    fontSize: 15,
+                    color: Color(0xff9da9c7),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  subtitleTextStyle: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xffabb8d6),
+                  ),
+                ),
+              )
                   : Row(
-                      children: [
-                        const Spacer(),
-                        Image.file(imageURI!, height: 200, fit: BoxFit.cover),
-                        const Spacer(),
-                      ],
-                    ),
+                children: [
+                  const Spacer(),
+                  Image.file(imageURI!, height: 200, fit: BoxFit.cover),
+                  const Spacer(),
+                ],
+              ),
               const SizedBox(
                 height: 8,
               ),
@@ -335,40 +331,43 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: RoundedLoadingButton(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  color: Colors.blue,
-                  successColor: Colors.green,
-                  // resetAfterDuration: true,
-                  // resetDuration: const Duration(seconds: 10),
-                  child: const Text('Classify!',
-                      style: TextStyle(color: Colors.white)),
-                  controller: _btnController,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    // primary: Colors.blue, // background color
+                    // onPrimary: Colors.white, // text color
+                  ),
                   onPressed: isClassifying || imageURI == null
                       ? null // null value disables the button
                       : () async {
-                          isClassifying = true;
+                    setState(() {
+                      isClassifying = true;
+                    });
 
-                          imgBytes = imageURI!.readAsBytesSync();
-                          String base64Image = "data:image/png;base64," +
-                              base64Encode(imgBytes!);
+                    imgBytes = await imageURI!.readAsBytes();
+                    String base64Image = "data:image/png;base64," + base64Encode(imgBytes!);
 
-                          try {
-                            Stopwatch stopwatch = Stopwatch()..start();
-                            final result = await classifyRiceImage(base64Image);
+                    try {
+                      Stopwatch stopwatch = Stopwatch()..start();
+                      final result = await classifyRiceImage(base64Image);
 
-                            setState(() {
-                              _resultString = parseResultsIntoString(result);
-                              _resultDict = result;
-                              _latency =
-                                  stopwatch.elapsed.inMilliseconds.toString();
-                            });
-                            _btnController.success();
-                          } catch (e) {
-                            _btnController.error();
-                          }
-                          isClassifying = false;
-                        },
+                      setState(() {
+                        _resultString = parseResultsIntoString(result);
+                        _resultDict = result;
+                        _latency = stopwatch.elapsed.inMilliseconds.toString();
+                        isClassifying = false;
+                      });
+                    } catch (e) {
+                      setState(() {
+                        isClassifying = false;
+                      });
+                      // Handle error
+                    }
+                  },
+                  child: isClassifying
+                      ? const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                      : const Text('Classify!'),
                 ),
               ),
               Row(

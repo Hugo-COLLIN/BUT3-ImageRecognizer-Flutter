@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 Future<File> cropImage(XFile pickedFile) async {
   // Crop image here
-  final File? croppedFile = await ImageCropper().cropImage(
+  final CroppedFile? croppedFile = await ImageCropper().cropImage(
     sourcePath: pickedFile.path,
     cropStyle: CropStyle.rectangle,
     aspectRatioPresets: [
@@ -20,16 +20,18 @@ Future<File> cropImage(XFile pickedFile) async {
       // CropAspectRatioPreset.ratio16x9
     ],
     // ignore: prefer_const_constructors
-    iosUiSettings: IOSUiSettings(
+    uiSettings: [
+      IOSUiSettings(
         minimumAspectRatio: 1.0,
       ),
-    androidUiSettings: const AndroidUiSettings(
+    AndroidUiSettings(
       toolbarTitle: 'Cropper',
       toolbarColor: Colors.blue, //Theme.of(context).primaryColor,
       toolbarWidgetColor: Colors.white,
       initAspectRatio: CropAspectRatioPreset.original,
       lockAspectRatio: false
-    ),
+    )
+      ]
   );
 
   return File(croppedFile!.path);
