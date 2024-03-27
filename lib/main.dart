@@ -14,26 +14,16 @@ import 'widgets.dart';
 import 'utils.dart';
 
 final List<String> imgList = [
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/bacterial_leaf_blight/100023.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/bacterial_leaf_blight/100049.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/bacterial_leaf_streak/100042.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/bacterial_leaf_streak/100084.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/bacterial_panicle_blight/100043.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/bacterial_panicle_blight/100058.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/blast/100004.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/blast/100006.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/brown_spot/100022.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/brown_spot/100001.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/dead_heart/100008.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/dead_heart/100020.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/downy_mildew/100031.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/downy_mildew/100017.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/hispa/100003.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/hispa/100005.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/normal/100007.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/normal/100002.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/tungro/100011.jpg',
-  'https://raw.githubusercontent.com/dnth/huggingface-timm-mobile-blogpost/main/sample_images/tungro/100013.jpg'
+  'https://oceana.org/wp-content/uploads/sites/18/cephalopods.jpg',
+  'https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+  'https://i.natgeofe.com/n/d36dafe7-5837-4ba3-b572-5e097e60820c/18161_3x2.jpg',
+  'https://wpvip.ted.com/wp-content/uploads/sites/3/2014/06/sailfish.jpg',
+  'https://www.nothingfishy.co/cdn/shop/articles/animal-1868046_1280.jpg?v=1683647714&width=1100',
+  'https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/09/blobfish-out-of-water.jpg',
+  'https://c02.purpledshub.com/uploads/sites/62/2023/09/Lionfish.jpg',
+  'https://images.saymedia-content.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MjAzMzEzMDI1MzgwMjYzMDk0/sea-animals-list.jpg',
+  'https://30a.com/wp-content/uploads/2020/02/Seahorse-mating-photo-by-Don-McLeish-.jpg',
+  'https://images.squarespace-cdn.com/content/v1/5e2755963c421657bd408970/e3a534b0-e703-4c2d-a048-df995b6fbffa/Mammals.jpg',
 ];
 
 void main() {
@@ -47,11 +37,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Paddy Disease Classifier',
+      title: 'Sea Animals Classifier',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Paddy Disease Classifier'),
+      home: const MyHomePage(title: 'Sea Animals Classifier'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -317,58 +307,40 @@ class _MyHomePageState extends State<MyHomePage> {
               Text("Latency: $_latency ms",
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-              Text("Samples", style: Theme.of(context).textTheme.titleLarge),
+              Row(
+                children: [
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FloatingActionButton.extended(
+                      label: const Text("Take a picture"),
+                      icon: const Icon(Icons.camera),
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return buildModalBtmSheetItems();
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Center(child: Text("Or select a sample :",
+                  style: Theme.of(context).textTheme.titleLarge)),
+              const SizedBox(height: 8),
               CarouselSlider(
                 options: CarouselOptions(
                   height: 180,
                   autoPlay: true,
-                  // aspectRatio: 2.5,
                   viewportFraction: 0.4,
                   enlargeCenterPage: false,
                   enlargeStrategy: CenterPageEnlargeStrategy.height,
                 ),
                 items: imageSliders,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    // primary: Colors.blue, // background color
-                    // onPrimary: Colors.white, // text color
-                  ),
-                  onPressed: isClassifying || imageURI == null
-                      ? null // null value disables the button
-                      : () async {
-                    setState(() {
-                      isClassifying = true;
-                    });
-
-                    imgBytes = await imageURI!.readAsBytes();
-                    String base64Image = "data:image/png;base64," + base64Encode(imgBytes!);
-
-                    try {
-                      Stopwatch stopwatch = Stopwatch()..start();
-                      final result = await classifyRiceImage(base64Image);
-
-                      setState(() {
-                        _resultString = parseResultsIntoString(result);
-                        _resultDict = result;
-                        _latency = stopwatch.elapsed.inMilliseconds.toString();
-                        isClassifying = false;
-                      });
-                    } catch (e) {
-                      setState(() {
-                        isClassifying = false;
-                      });
-                      // Handle error
-                    }
-                  },
-                  child: isClassifying
-                      ? const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  )
-                      : const Text('Classify!'),
-                ),
               ),
               Row(
                 children: [
@@ -383,7 +355,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           throw 'Could not launch $link';
                         }
                       },
-                      text: "Made by https://dicksonneoh.com",
+                      text: "Based on \"Rice Diseases\" : https://dicksonneoh.com",
                     ),
                   ),
                   const Spacer(),
@@ -392,17 +364,49 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          label: const Text("Take picture"),
-          icon: const Icon(Icons.camera),
-          onPressed: () {
-            showModalBottomSheet<void>(
-              context: context,
-              builder: (BuildContext context) {
-                return buildModalBtmSheetItems();
+        floatingActionButton: Row(
+          children: [
+            const Spacer(),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                // primary: Colors.blue, // background color
+                // onPrimary: Colors.white, // text color
+              ),
+              onPressed: isClassifying || imageURI == null
+                  ? null // null value disables the button
+                  : () async {
+                setState(() {
+                  isClassifying = true;
+                });
+
+                imgBytes = await imageURI!.readAsBytes();
+                String base64Image = "data:image/png;base64," + base64Encode(imgBytes!);
+
+                try {
+                  Stopwatch stopwatch = Stopwatch()..start();
+                  final result = await classifyRiceImage(base64Image);
+
+                  setState(() {
+                    _resultString = parseResultsIntoString(result);
+                    _resultDict = result;
+                    _latency = stopwatch.elapsed.inMilliseconds.toString();
+                    isClassifying = false;
+                  });
+                } catch (e) {
+                  setState(() {
+                    isClassifying = false;
+                  });
+                  // Handle error
+                }
               },
-            );
-          },
+              child: isClassifying
+                  ? const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              )
+                  : const Text('🌊 Classify!'),
+            ),
+            const Spacer(),
+          ],
         ),
       ),
     );
