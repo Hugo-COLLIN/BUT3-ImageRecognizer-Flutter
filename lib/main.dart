@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paddy_disease_classifier/data.dart';
-import 'package:paddy_disease_classifier/pages/my_home_page.dart';
+import 'package:paddy_disease_classifier/pages/selection.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: appName),
+      home: const SelectionPage(title: appName),
       debugShowCheckedModeBanner: false,
     );
   }

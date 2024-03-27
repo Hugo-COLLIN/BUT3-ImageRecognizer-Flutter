@@ -14,16 +14,16 @@ import '../process/utils.dart';
 import 'predictions.dart';
 
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class SelectionPage extends StatefulWidget {
+  const SelectionPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<SelectionPage> createState() => _SelectionPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SelectionPageState extends State<SelectionPage> {
   Map _resultDict = {
     "label": "None",
     "confidences": [
