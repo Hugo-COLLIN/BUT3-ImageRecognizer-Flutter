@@ -113,12 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 imageURI = imgFile;
                 isClassifying = false;
               });
-              Navigator.pop(context);
               classifyImage();
             }
           },
         ),
-        SizedBox(width: 10), // Ajoute un espace de 10 pixels entre les boutons
+        const SizedBox(width: 10), // Ajoute un espace de 10 pixels entre les boutons
         FloatingActionButton.extended(
           heroTag: "btn2",
           icon: const Icon(Icons.image),
@@ -139,7 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 imageURI = imgFile;
                 isClassifying = false;
               });
-              Navigator.pop(context);
               classifyImage();
             }
           },
