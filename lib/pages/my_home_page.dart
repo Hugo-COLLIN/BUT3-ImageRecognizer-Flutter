@@ -14,7 +14,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../widgets.dart';
 import '../process/utils.dart';
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -61,6 +60,35 @@ class _MyHomePageState extends State<MyHomePage> {
     };
   }
 
+  // Nouvelle fonction pour classifier l'image
+  Future<void> classifyImage() async {
+    if (imageURI == null) return;
+
+    setState(() {
+      isClassifying = true;
+    });
+
+    imgBytes = await imageURI!.readAsBytes();
+    String base64Image = "data:image/png;base64," + base64Encode(imgBytes!);
+
+    try {
+      Stopwatch stopwatch = Stopwatch()..start();
+      final result = await classifyRiceImage(base64Image);
+
+      setState(() {
+        _resultString = parseResultsIntoString(result);
+        _resultDict = result;
+        _latency = stopwatch.elapsed.inMilliseconds.toString();
+        isClassifying = false;
+      });
+    } catch (e) {
+      setState(() {
+        isClassifying = false;
+      });
+      // Handle error
+    }
+  }
+
   Widget buildModalBtmSheetItems() {
     return SizedBox(
       height: 120,
@@ -71,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: const Text("Camera"),
             onTap: () async {
               final XFile? pickedFile =
-                  await ImagePicker().pickImage(source: ImageSource.camera);
+              await ImagePicker().pickImage(source: ImageSource.camera);
 
               if (pickedFile != null) {
                 // Clear result of previous inference as soon as new image is selected
@@ -86,10 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 setState(() {
                   imageURI = imgFile;
-                  // _btnController.stop();
                   isClassifying = false;
                 });
                 Navigator.pop(context);
+                classifyImage(); // Appeler la fonction de classification
               }
             },
           ),
@@ -112,11 +140,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(
                   () {
                     imageURI = imgFile;
-                    // _btnController.stop();
                     isClassifying = false;
                   },
                 );
                 Navigator.pop(context);
+                classifyImage(); // Appeler la fonction de classification
               }
             },
           )
@@ -144,11 +172,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           setState(() {
                             imageURI = imgFile;
-                            // _btnController.stop();
                             isClassifying = false;
                             clearInferenceResults();
                           });
                           context.loaderOverlay.hide();
+                          classifyImage();
                         },
                         child: CachedNetworkImage(
                           imageUrl: item,
@@ -333,52 +361,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-        ),
-        floatingActionButton: Row(
-          children: [
-            const Spacer(),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  // primary: Colors.blue, // background color
-                  // onPrimary: Colors.white, // text color
-                  ),
-              onPressed: isClassifying || imageURI == null
-                  ? null // null value disables the button
-                  : () async {
-                      setState(() {
-                        isClassifying = true;
-                      });
-
-                      imgBytes = await imageURI!.readAsBytes();
-                      String base64Image =
-                          "data:image/png;base64," + base64Encode(imgBytes!);
-
-                      try {
-                        Stopwatch stopwatch = Stopwatch()..start();
-                        final result = await classifyRiceImage(base64Image);
-
-                        setState(() {
-                          _resultString = parseResultsIntoString(result);
-                          _resultDict = result;
-                          _latency =
-                              stopwatch.elapsed.inMilliseconds.toString();
-                          isClassifying = false;
-                        });
-                      } catch (e) {
-                        setState(() {
-                          isClassifying = false;
-                        });
-                        // Handle error
-                      }
-                    },
-              child: isClassifying
-                  ? const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : const Text('🌊 Classify!'),
-            ),
-            const Spacer(),
-          ],
         ),
       ),
     );
