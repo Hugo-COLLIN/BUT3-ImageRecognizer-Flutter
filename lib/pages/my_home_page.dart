@@ -90,68 +90,64 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildModalBtmSheetItems() {
-    return SizedBox(
-      height: 120,
-      child: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.camera),
-            title: const Text("Camera"),
-            onTap: () async {
-              final XFile? pickedFile =
-              await ImagePicker().pickImage(source: ImageSource.camera);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton.extended(
+          heroTag: "btn1",
+          icon: const Icon(Icons.camera),
+          label: const Text("Camera"),
+          onPressed: () async {
+            final XFile? pickedFile =
+            await ImagePicker().pickImage(source: ImageSource.camera);
 
-              if (pickedFile != null) {
-                // Clear result of previous inference as soon as new image is selected
-                setState(() {
-                  clearInferenceResults();
-                });
+            if (pickedFile != null) {
+              setState(() {
+                clearInferenceResults();
+              });
 
-                File croppedFile = await cropImage(pickedFile);
-                final imgFile = File(croppedFile.path);
-                // File imgFile = File(pickedFile.path);
-                // or image_cropper 5.0.1 check la page et modif manifest.xml android
+              File croppedFile = await cropImage(pickedFile);
+              final imgFile = File(croppedFile.path);
 
-                setState(() {
-                  imageURI = imgFile;
-                  isClassifying = false;
-                });
-                Navigator.pop(context);
-                classifyImage(); // Appeler la fonction de classification
-              }
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.image),
-            title: const Text("Gallery"),
-            onTap: () async {
-              final XFile? pickedFile =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
+              setState(() {
+                imageURI = imgFile;
+                isClassifying = false;
+              });
+              Navigator.pop(context);
+              classifyImage();
+            }
+          },
+        ),
+        SizedBox(width: 10), // Ajoute un espace de 10 pixels entre les boutons
+        FloatingActionButton.extended(
+          heroTag: "btn2",
+          icon: const Icon(Icons.image),
+          label: const Text("Gallery"),
+          onPressed: () async {
+            final XFile? pickedFile =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
 
-              if (pickedFile != null) {
-                // Clear result of previous inference as soon as new image is selected
-                setState(() {
-                  clearInferenceResults();
-                });
+            if (pickedFile != null) {
+              setState(() {
+                clearInferenceResults();
+              });
 
-                File croppedFile = await cropImage(pickedFile);
-                final imgFile = File(croppedFile.path);
+              File croppedFile = await cropImage(pickedFile);
+              final imgFile = File(croppedFile.path);
 
-                setState(
-                  () {
-                    imageURI = imgFile;
-                    isClassifying = false;
-                  },
-                );
-                Navigator.pop(context);
-                classifyImage(); // Appeler la fonction de classification
-              }
-            },
-          )
-        ],
-      ),
+              setState(() {
+                imageURI = imgFile;
+                isClassifying = false;
+              });
+              Navigator.pop(context);
+              classifyImage();
+            }
+          },
+        ),
+      ],
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -271,23 +267,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text("Latency: $_latency ms",
                     style: Theme.of(context).textTheme.titleLarge),
               ],
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
+              Center(
+                  child: Text("Take a picture:",
+                      style: Theme.of(context).textTheme.titleLarge)),
               Row(
                 children: [
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: FloatingActionButton.extended(
-                      label: const Text("Take a picture"),
-                      icon: const Icon(Icons.camera),
-                      onPressed: () {
-                        showModalBottomSheet<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return buildModalBtmSheetItems();
-                          },
-                        );
-                      },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: buildModalBtmSheetItems(),
                     ),
                   ),
                   const Spacer(),
@@ -295,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 8),
               Center(
-                  child: Text("Or select a sample :",
+                  child: Text("Or select a sample:",
                       style: Theme.of(context).textTheme.titleLarge)),
               const SizedBox(height: 8),
               CarouselSlider(
