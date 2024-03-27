@@ -35,17 +35,17 @@ class PredictionsPage extends StatelessWidget {
                 const Spacer(),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 24),
             if (isLoading) ...[
               const Center(child: CircularProgressIndicator()), // Affiche un indicateur de chargement
               const SizedBox(height: 16),
               const Center(child: Text("Prediction calculation...")),
             ] else ...[
-              Text("Top 3 predictions", style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 8),
+              Center(child: Text("Top 3 predictions:", style: Theme.of(context).textTheme.titleLarge),),
+              const SizedBox(height: 12),
               FittedBox(child: buildResultsIndicators(resultDict)),
-              const SizedBox(height: 8),
-              Text("Latency: $latency ms", style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 24),
+              Text("Latency: $latency ms", style: Theme.of(context).textTheme.titleMedium),
             ],
           ],
         ),

@@ -220,15 +220,7 @@ class _SelectionPageState extends State<SelectionPage> {
                             ),
                           ),
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          child: Text(
-                            'GT: ${imgList[imgList.indexOf(item)].split('/').reversed.elementAt(1)}', // get the class name from url
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                              vertical: 00.0, horizontal: 20.0),
                         ),
                       ),
                     ],
@@ -276,7 +268,7 @@ class _SelectionPageState extends State<SelectionPage> {
                 options: CarouselOptions(
                   height: 180,
                   autoPlay: true,
-                  viewportFraction: 0.4,
+                  // viewportFraction: 0.4,
                   enlargeCenterPage: false,
                   enlargeStrategy: CenterPageEnlargeStrategy.height,
                 ),

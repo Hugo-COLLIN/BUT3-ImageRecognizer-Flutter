@@ -11,7 +11,7 @@ Widget buildPercentIndicator(String className, double classConfidence) {
       style: const TextStyle(fontSize: 12.0),
     ),
     trailing: Text(className),
-    leading: const Icon(Icons.arrow_forward_ios),
+    leading: const SizedBox(height: 24, width: 16),
     // linearStrokeCap: LinearStrokeCap.roundAll,
     backgroundColor: Colors.grey,
     progressColor: Colors.blue,
