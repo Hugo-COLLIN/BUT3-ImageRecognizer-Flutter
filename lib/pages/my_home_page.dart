@@ -5,26 +5,15 @@ import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:paddy_disease_classifier/data.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'services.dart';
+import '../process/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'widgets.dart';
-import 'utils.dart';
+import '../widgets.dart';
+import '../process/utils.dart';
 
-final List<String> imgList = [
-  'https://oceana.org/wp-content/uploads/sites/18/cephalopods.jpg',
-  'https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-  'https://i.natgeofe.com/n/d36dafe7-5837-4ba3-b572-5e097e60820c/18161_3x2.jpg',
-  'https://wpvip.ted.com/wp-content/uploads/sites/3/2014/06/sailfish.jpg',
-  'https://www.nothingfishy.co/cdn/shop/articles/animal-1868046_1280.jpg?v=1683647714&width=1100',
-  'https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/09/blobfish-out-of-water.jpg',
-  'https://c02.purpledshub.com/uploads/sites/62/2023/09/Lionfish.jpg',
-  'https://images.saymedia-content.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MjAzMzEzMDI1MzgwMjYzMDk0/sea-animals-list.jpg',
-  'https://30a.com/wp-content/uploads/2020/02/Seahorse-mating-photo-by-Don-McLeish-.jpg',
-  'https://images.squarespace-cdn.com/content/v1/5e2755963c421657bd408970/e3a534b0-e703-4c2d-a048-df995b6fbffa/Mammals.jpg',
-];
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
