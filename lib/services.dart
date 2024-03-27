@@ -7,7 +7,8 @@ Future<Map> classifyRiceImage(String imageBase64) async {
     Uri.parse(
       //'https://dnth-edgenext-paddy-disease-classifie-dc60651.hf.space/run/predict')
       //   'https://dnth-edgenext-paddy-disease-classifier.hf.space/run/predict'
-      'https://tolgadev-sea-animals-classification.hf.space/api/predict'
+      'https://tolgadev-sea-animals-classification.hf.space/api/predict' // It works!
+      // 'https://gbryan-pokemon-classifier.hf.space/api/predict/' // It works!
     ),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
