@@ -221,9 +221,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return LoaderOverlay(
       child: Scaffold(
+
         appBar: AppBar(
           title: Text(widget.title),
         ),
+
         body: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(8.0),
@@ -231,42 +233,44 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              imageURI == null
-                  ? SizedBox(
-                      height: 200,
-                      child: EmptyWidget(
-                        image: null,
-                        packageImage: PackageImage.Image_3,
-                        title: 'No image',
-                        subTitle: 'Select an image',
-                        titleTextStyle: const TextStyle(
-                          fontSize: 15,
-                          color: Color(0xff9da9c7),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        subtitleTextStyle: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xffabb8d6),
-                        ),
-                      ),
-                    )
-                  : Row(
-                      children: [
-                        const Spacer(),
-                        Image.file(imageURI!, height: 200, fit: BoxFit.cover),
-                        const Spacer(),
-                      ],
+              if (_resultString != null && _resultString!.isNotEmpty) ...[
+                imageURI == null
+                    ? SizedBox(
+                  height: 200,
+                  child: EmptyWidget(
+                    image: null,
+                    packageImage: PackageImage.Image_3,
+                    title: 'No image',
+                    subTitle: 'Select an image',
+                    titleTextStyle: const TextStyle(
+                      fontSize: 15,
+                      color: Color(0xff9da9c7),
+                      fontWeight: FontWeight.w500,
                     ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text("Top 3 predictions",
-                  style: Theme.of(context).textTheme.titleLarge),
-              const SizedBox(height: 8),
-              FittedBox(child: buildResultsIndicators(_resultDict)),
-              const SizedBox(height: 8),
-              Text("Latency: $_latency ms",
-                  style: Theme.of(context).textTheme.titleLarge),
+                    subtitleTextStyle: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xffabb8d6),
+                    ),
+                  ),
+                )
+                    : Row(
+                  children: [
+                    const Spacer(),
+                    Image.file(imageURI!, height: 200, fit: BoxFit.cover),
+                    const Spacer(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text("Top 3 predictions",
+                    style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 8),
+                FittedBox(child: buildResultsIndicators(_resultDict)),
+                const SizedBox(height: 8),
+                Text("Latency: $_latency ms",
+                    style: Theme.of(context).textTheme.titleLarge),
+              ],
               const SizedBox(height: 8),
               Row(
                 children: [
