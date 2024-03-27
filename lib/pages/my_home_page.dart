@@ -13,6 +13,8 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../widgets.dart';
 import '../process/utils.dart';
+import 'predictions.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -81,6 +83,17 @@ class _MyHomePageState extends State<MyHomePage> {
         _latency = stopwatch.elapsed.inMilliseconds.toString();
         isClassifying = false;
       });
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PredictionsPage(
+            imageURI: imageURI!,
+            resultDict: _resultDict,
+            latency: _latency,
+          ),
+        ),
+      );
     } catch (e) {
       setState(() {
         isClassifying = false;
@@ -227,44 +240,6 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (_resultString != null && _resultString!.isNotEmpty) ...[
-                imageURI == null
-                    ? SizedBox(
-                  height: 200,
-                  child: EmptyWidget(
-                    image: null,
-                    packageImage: PackageImage.Image_3,
-                    title: 'No image',
-                    subTitle: 'Select an image',
-                    titleTextStyle: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xff9da9c7),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    subtitleTextStyle: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xffabb8d6),
-                    ),
-                  ),
-                )
-                    : Row(
-                  children: [
-                    const Spacer(),
-                    Image.file(imageURI!, height: 200, fit: BoxFit.cover),
-                    const Spacer(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text("Top 3 predictions",
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 8),
-                FittedBox(child: buildResultsIndicators(_resultDict)),
-                const SizedBox(height: 8),
-                Text("Latency: $_latency ms",
-                    style: Theme.of(context).textTheme.titleLarge),
-              ],
               const SizedBox(height: 16),
               Center(
                   child: Text("Take a picture:",
