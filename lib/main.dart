@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paddy_disease_classifier/data.dart';
 import 'package:paddy_disease_classifier/pages/my_home_page.dart';
 
 void main() {
@@ -12,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sea Animals Classifier',
+      title: appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Sea Animals Classifier'),
+      home: const MyHomePage(title: appName),
       debugShowCheckedModeBanner: false,
     );
   }

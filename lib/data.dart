@@ -1,3 +1,5 @@
+const appName = 'Sea Animals Classifier';
+
 final List<String> imgList = [
   'https://oceana.org/wp-content/uploads/sites/18/cephalopods.jpg',
   'https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
