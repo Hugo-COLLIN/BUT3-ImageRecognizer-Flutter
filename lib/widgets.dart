@@ -16,6 +16,7 @@ Widget buildPercentIndicator(String className, double classConfidence) {
     backgroundColor: Colors.grey,
     progressColor: Colors.blue,
     animation: true,
+    barRadius: const Radius.circular(10),
   );
 }
 
