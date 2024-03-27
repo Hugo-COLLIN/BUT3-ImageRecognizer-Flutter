@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Widget buildModalBtmSheetItems() {
+  Widget buildTakeAPictureButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -276,7 +276,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(12.0),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: buildModalBtmSheetItems(),
+                      child: buildTakeAPictureButtons(),
                     ),
                   ),
                   const Spacer(),
