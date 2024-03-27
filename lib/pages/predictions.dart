@@ -7,12 +7,14 @@ class PredictionsPage extends StatelessWidget {
   final File imageURI;
   final Map resultDict;
   final String latency;
+  final bool isLoading; // Ajout de l'état de chargement
 
   const PredictionsPage({
     Key? key,
     required this.imageURI,
     required this.resultDict,
     required this.latency,
+    this.isLoading = true, // Par défaut, isLoading est vrai
   }) : super(key: key);
 
   @override
@@ -34,11 +36,17 @@ class PredictionsPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text("Top 3 predictions", style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 8),
-            FittedBox(child: buildResultsIndicators(resultDict)),
-            const SizedBox(height: 8),
-            Text("Latency: $latency ms", style: Theme.of(context).textTheme.titleLarge),
+            if (isLoading) ...[
+              const Center(child: CircularProgressIndicator()), // Affiche un indicateur de chargement
+              const SizedBox(height: 16),
+              const Center(child: Text("Prediction calculation...")),
+            ] else ...[
+              Text("Top 3 predictions", style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 8),
+              FittedBox(child: buildResultsIndicators(resultDict)),
+              const SizedBox(height: 8),
+              Text("Latency: $latency ms", style: Theme.of(context).textTheme.titleLarge),
+            ],
           ],
         ),
       ),

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +10,6 @@ import '../process/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../widgets.dart';
 import '../process/utils.dart';
 import 'predictions.dart';
 
@@ -26,7 +24,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String? _resultString;
   Map _resultDict = {
     "label": "None",
     "confidences": [
@@ -50,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   clearInferenceResults() {
-    _resultString = "";
     _latency = "N/A";
     _resultDict = {
       "label": "None",
@@ -66,6 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> classifyImage() async {
     if (imageURI == null) return;
 
+    // Naviguer vers PredictionsPage avec isLoading à true
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PredictionsPage(
+          imageURI: imageURI!,
+          resultDict: {}, // Dictionnaire vide car les résultats ne sont pas encore disponibles
+          latency: "0",
+          isLoading: true,
+        ),
+      ),
+    );
+
     setState(() {
       isClassifying = true;
     });
@@ -78,19 +87,20 @@ class _MyHomePageState extends State<MyHomePage> {
       final result = await classifyRiceImage(base64Image);
 
       setState(() {
-        _resultString = parseResultsIntoString(result);
         _resultDict = result;
         _latency = stopwatch.elapsed.inMilliseconds.toString();
         isClassifying = false;
       });
 
-      Navigator.push(
+      // Remplacer la page actuelle par PredictionsPage avec les résultats mis à jour
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => PredictionsPage(
             imageURI: imageURI!,
             resultDict: _resultDict,
             latency: _latency,
+            isLoading: false, // Les résultats sont maintenant chargés
           ),
         ),
       );
