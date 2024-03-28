@@ -40,8 +40,6 @@ class _SelectionPageState extends State<SelectionPage> {
   Uint8List? imgBytes; // Store img to be sent for api inference
   bool isClassifying = false;
 
-  List<Map<String, dynamic>> predictedImages = []; // Liste pour stocker les images prédites avec leurs résultats
-
   String parseResultsIntoString(Map results) {
     return """
     ${results['confidences'][0]['label']} - ${(results['confidences'][0]['confidence'] * 100.0).toStringAsFixed(2)}% \n

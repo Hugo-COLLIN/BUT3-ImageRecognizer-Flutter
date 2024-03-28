@@ -12,3 +12,5 @@ final List<String> imgList = [
   'https://30a.com/wp-content/uploads/2020/02/Seahorse-mating-photo-by-Don-McLeish-.jpg',
   'https://images.squarespace-cdn.com/content/v1/5e2755963c421657bd408970/e3a534b0-e703-4c2d-a048-df995b6fbffa/Mammals.jpg',
 ];
+
+List<Map<String, dynamic>> predictedImages = [];

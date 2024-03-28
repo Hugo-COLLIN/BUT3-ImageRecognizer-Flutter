@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:sea_animals_classifier/data.dart';
 
 // TODO : images crop carré
 //  + ne garder que la dernière prédiction d'une même image (seult si idem à la précédente,
@@ -8,10 +9,8 @@ import 'dart:io';
 // + option supprimer l'historique
 
 class HistoryPage extends StatelessWidget {
-  final List<Map<String, dynamic>>
-      predictedImages; // Liste des images prédites avec leurs résultats
 
-  const HistoryPage({Key? key, required this.predictedImages})
+  const HistoryPage({Key? key, required predictedImages})
       : super(key: key);
 
   @override
