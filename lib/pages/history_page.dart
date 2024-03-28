@@ -6,7 +6,6 @@ import 'package:sea_animals_classifier/pages/predictions_page.dart';
 // TODO : images crop carré
 //  + ne garder que la dernière prédiction d'une même image (seult si idem à la précédente,
 //  ou aussi supprimer le précédent idem même si plus loin dans l'historique?)
-// + afficher le résultat de prédiction au clic sur l'élément
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
