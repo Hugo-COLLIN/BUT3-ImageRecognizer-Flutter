@@ -1,3 +1,6 @@
+//TODO: Already predicted section = history in the same page of selection page
+// > liste des 5 premiers éléments et bouton "Afficher tout l'historique"
+
 import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -251,7 +254,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HistoryPage(predictedImages: predictedImages),
+                      builder: (context) => const HistoryPage(),
                     ),
                   );
                 },

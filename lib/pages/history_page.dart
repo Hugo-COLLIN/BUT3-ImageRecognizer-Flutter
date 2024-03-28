@@ -8,16 +8,53 @@ import 'package:sea_animals_classifier/data.dart';
 // + afficher le résultat de prédiction au clic sur l'élément
 // + option supprimer l'historique
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({Key? key}) : super(key: key);
 
-  const HistoryPage({Key? key, required predictedImages})
-      : super(key: key);
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
 
+class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('History'),
+        actions: <Widget>[
+          if (predictedImages.isNotEmpty) // Masquer l'icône si l'historique est vide
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Confirm"),
+                      content: Text("Are you sure you want to delete the history?"),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text("Cancel"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Delete"),
+                          onPressed: () {
+                            setState(() {
+                              predictedImages.clear();
+                            });
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+        ],
       ),
       body: predictedImages.isNotEmpty
           ? ListView.separated(
