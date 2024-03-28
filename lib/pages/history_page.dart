@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 class HistoryPage extends StatelessWidget {
-  final List<File> predictedImages; // Liste des images prédites
+  final List<Map<String, dynamic>> predictedImages; // Liste des images prédites avec leurs résultats
 
   const HistoryPage({Key? key, required this.predictedImages}) : super(key: key);
 
@@ -12,15 +12,35 @@ class HistoryPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('History'),
       ),
-      body: ListView.builder(
+      body: predictedImages.isNotEmpty
+          ? ListView.builder(
         itemCount: predictedImages.length,
         itemBuilder: (context, index) {
           int reversedIndex = predictedImages.length - 1 - index;
+          Map<String, dynamic> imageData = predictedImages[reversedIndex];
+          File imageFile = imageData['image'];
+          Map resultDict = imageData['result'];
+          String mostProbablePrediction = resultDict['confidences'][0]['label'];
+
           return ListTile(
-            leading: Image.file(predictedImages[reversedIndex], width: 50, height: 50),
-            title: Text('Image ${index + 1}'),
+            leading: Image.file(imageFile, width: 50, height: 50),
+            title: Text('$mostProbablePrediction'),
           );
         },
+      )
+      : const Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 16.0),
+            child: Center(
+              child: Text(
+              "Empty history...",
+              style: TextStyle(fontSize: 18),
+            ),
+            ),
+          ),
+        ],
       ),
     );
   }

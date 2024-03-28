@@ -40,7 +40,7 @@ class _SelectionPageState extends State<SelectionPage> {
   Uint8List? imgBytes; // Store img to be sent for api inference
   bool isClassifying = false;
 
-  List<File> predictedImages = []; // Liste pour stocker les images prédites
+  List<Map<String, dynamic>> predictedImages = []; // Liste pour stocker les images prédites avec leurs résultats
 
   String parseResultsIntoString(Map results) {
     return """
@@ -93,7 +93,10 @@ class _SelectionPageState extends State<SelectionPage> {
         _resultDict = result;
         _latency = stopwatch.elapsed.inMilliseconds.toString();
         isClassifying = false;
-        predictedImages.add(imageURI!);
+        predictedImages.add({
+          'image': imageURI!,
+          'result': _resultDict,
+        });
       });
 
       // Remplacer la page actuelle par PredictionsPage avec les résultats mis à jour
