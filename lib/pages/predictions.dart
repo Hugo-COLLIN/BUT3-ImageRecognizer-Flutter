@@ -23,23 +23,25 @@ class PredictionsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Predictions'),
       ),
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( // Permet le défilement si le contenu dépasse l'écran
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: [
-                const Spacer(),
-                Image.file(imageURI, height: 200, fit: BoxFit.cover),
-                const Spacer(),
-              ],
+            Center(
+              child: AspectRatio( // Contraint l'image à un rapport d'aspect
+                aspectRatio: 1.5, // Vous pouvez ajuster ce rapport d'aspect selon vos besoins
+                child: Container(
+                  width: double.infinity, // Prend toute la largeur disponible
+                  child: Image.file(imageURI, fit: BoxFit.contain), // fit: BoxFit.contain pour s'assurer que l'image est entièrement visible
+                ),
+              ),
             ),
             const SizedBox(height: 24),
             if (isLoading) ...[
               const Center(child: CircularProgressIndicator()), // Affiche un indicateur de chargement
               const SizedBox(height: 16),
-              const Center(child: Text("Prediction calculation...")),
+              const Center(child: Text("Calculating predictions...")),
             ] else ...[
               Center(child: Text("Top 3 predictions:", style: Theme.of(context).textTheme.titleLarge),),
               const SizedBox(height: 12),
