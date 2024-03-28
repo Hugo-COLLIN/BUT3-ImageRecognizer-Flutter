@@ -237,21 +237,29 @@ class _SelectionPageState extends State<SelectionPage> {
 
         // Dans la méthode build de votre StatefulWidget principale (SelectionPage)
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 8.0), // Ajoute de l'espace à gauche du titre
+            child: Text(widget.title),
+          ),
           actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.history), // Icône horloge
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HistoryPage(predictedImages: predictedImages),
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0), // Ajoute de l'espace à droite de l'icône
+              child: IconButton(
+                icon: const Icon(Icons.history, size: 32), // Icône horloge plus grande et en blanc
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HistoryPage(predictedImages: predictedImages),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
+
+
 
         body: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
