@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "rice_deseases" "\0"
+            VALUE "FileDescription", "sea_animals_classifier" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "rice_deseases" "\0"
+            VALUE "InternalName", "sea_animals_classifier" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "rice_deseases.exe" "\0"
-            VALUE "ProductName", "rice_deseases" "\0"
+            VALUE "OriginalFilename", "sea_animals_classifier.exe" "\0"
+            VALUE "ProductName", "sea_animals_classifier" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

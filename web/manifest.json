@@ -1,6 +1,6 @@
 {
-    "name": "rice_deseases",
-    "short_name": "rice_deseases",
+    "name": "sea_animals_classifier",
+    "short_name": "sea_animals_classifier",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

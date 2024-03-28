@@ -1,4 +1,4 @@
-# rice_deseases
+# Sea Animals Classifier
 
 A new Flutter project.
 
