@@ -1,4 +1,5 @@
 //TODO: Already predicted section = history in the same page of selection page
+// Images You have already classified: / You already classified:
 // > liste des 5 premiers éléments et bouton "Afficher tout l'historique"
 
 import 'dart:io';
@@ -95,9 +96,12 @@ class _SelectionPageState extends State<SelectionPage> {
         _latency = stopwatch.elapsed.inMilliseconds.toString();
         isClassifying = false;
         predictedImages.add({
-          'image': imageURI!,
-          'result': _resultDict,
+          'image': imageURI, // L'objet File de l'image
+          'result': _resultDict, // Le dictionnaire des résultats de la prédiction
+          'latency': _latency, // La latence de la prédiction
+          'isLoading': false, // L'état de chargement, probablement toujours false lors de l'ajout à l'historique
         });
+
       });
 
       // Remplacer la page actuelle par PredictionsPage avec les résultats mis à jour
