@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:paddy_disease_classifier/data.dart';
+import 'package:paddy_disease_classifier/pages/history_page.dart';
 import 'package:paddy_disease_classifier/pages/predictions_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../process/services.dart';
@@ -38,6 +39,8 @@ class _SelectionPageState extends State<SelectionPage> {
   File? imageURI; // Show on image widget on app
   Uint8List? imgBytes; // Store img to be sent for api inference
   bool isClassifying = false;
+
+  List<File> predictedImages = []; // Liste pour stocker les images prédites
 
   String parseResultsIntoString(Map results) {
     return """
@@ -90,6 +93,7 @@ class _SelectionPageState extends State<SelectionPage> {
         _resultDict = result;
         _latency = stopwatch.elapsed.inMilliseconds.toString();
         isClassifying = false;
+        predictedImages.add(imageURI!);
       });
 
       // Remplacer la page actuelle par PredictionsPage avec les résultats mis à jour
@@ -231,8 +235,22 @@ class _SelectionPageState extends State<SelectionPage> {
     return LoaderOverlay(
       child: Scaffold(
 
+        // Dans la méthode build de votre StatefulWidget principale (SelectionPage)
         appBar: AppBar(
           title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.history), // Icône horloge
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HistoryPage(predictedImages: predictedImages),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
 
         body: SingleChildScrollView(
