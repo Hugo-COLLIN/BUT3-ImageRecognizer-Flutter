@@ -15,8 +15,9 @@ class HistoryPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: predictedImages.length,
         itemBuilder: (context, index) {
+          int reversedIndex = predictedImages.length - 1 - index;
           return ListTile(
-            leading: Image.file(predictedImages[index], width: 50, height: 50),
+            leading: Image.file(predictedImages[reversedIndex], width: 50, height: 50),
             title: Text('Image ${index + 1}'),
           );
         },
