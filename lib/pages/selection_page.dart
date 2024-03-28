@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:paddy_disease_classifier/data.dart';
+import 'package:paddy_disease_classifier/pages/predictions_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../process/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../process/utils.dart';
-import 'predictions.dart';
 
 
 class SelectionPage extends StatefulWidget {

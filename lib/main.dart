@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paddy_disease_classifier/data.dart';
-import 'package:paddy_disease_classifier/pages/selection.dart';
+import 'package:paddy_disease_classifier/pages/selection_page.dart';
 
 void main() {
   runApp(const MyApp());
