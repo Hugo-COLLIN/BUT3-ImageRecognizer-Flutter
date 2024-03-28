@@ -14,3 +14,4 @@ final List<String> imgList = [
 ];
 
 List<Map<String, dynamic>> predictedImages = [];
+

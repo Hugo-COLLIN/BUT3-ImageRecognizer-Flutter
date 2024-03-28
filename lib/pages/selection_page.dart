@@ -96,10 +96,12 @@ class _SelectionPageState extends State<SelectionPage> {
         _latency = stopwatch.elapsed.inMilliseconds.toString();
         isClassifying = false;
         predictedImages.add({
-          'image': imageURI, // L'objet File de l'image
-          'result': _resultDict, // Le dictionnaire des résultats de la prédiction
-          'latency': _latency, // La latence de la prédiction
-          'isLoading': false, // L'état de chargement, probablement toujours false lors de l'ajout à l'historique
+          'image': imageURI,
+          'result': _resultDict,
+          'latency': _latency,
+          'isLoading': false,
+          'dateTime': DateTime.now(),
+          // 'dateTime': DateTime(now.year, now.month, now.day, now.hour, now.minute)
         });
 
       });
