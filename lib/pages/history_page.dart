@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:sea_animals_classifier/data.dart';
 import 'package:sea_animals_classifier/pages/predictions_page.dart';
 import 'package:intl/intl.dart';
+import 'package:sea_animals_classifier/extensions/my_extensions.dart';
 
 // TODO : images crop carré
 //  + ne garder que la dernière prédiction d'une même image (seult si idem à la précédente,
@@ -24,23 +25,23 @@ class _HistoryPageState extends State<HistoryPage> {
         actions: <Widget>[
           if (predictedImages.isNotEmpty) // Masquer l'icône si l'historique est vide
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("Confirm"),
-                      content: Text("Are you sure you want to delete the history?"),
+                      title: const Text("Confirm"),
+                      content: const Text("Are you sure you want to delete the history?"),
                       actions: <Widget>[
                         TextButton(
-                          child: Text("Cancel"),
+                          child: const Text("Cancel"),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                         ),
                         TextButton(
-                          child: Text("Delete"),
+                          child: const Text("Delete"),
                           onPressed: () {
                             setState(() {
                               predictedImages.clear();
@@ -84,7 +85,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   },
                   child: ListTile(
                     leading: Image.file(imageFile, width: 100, height: 100),
-                    title: Text(resultDict['confidences'][0]['label']),
+                    title: Text(resultDict['confidences'][0]['label'].toString().capitalizeFirst()),
                     subtitle: Text(DateFormat('dd/MM/yyyy h:mm a').format(dateTime)),
                   ),
                 );

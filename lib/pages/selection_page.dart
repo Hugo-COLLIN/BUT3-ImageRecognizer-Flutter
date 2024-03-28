@@ -73,7 +73,7 @@ class _SelectionPageState extends State<SelectionPage> {
       MaterialPageRoute(
         builder: (context) => PredictionsPage(
           imageURI: imageURI!,
-          resultDict: {}, // Dictionnaire vide car les résultats ne sont pas encore disponibles
+          resultDict: const {}, // Dictionnaire vide car les résultats ne sont pas encore disponibles
           latency: "0",
           isLoading: true,
         ),

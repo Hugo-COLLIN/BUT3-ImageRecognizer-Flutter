@@ -30,7 +30,7 @@ class PredictionsPage extends StatelessWidget {
             Center(
               child: AspectRatio( // Contraint l'image à un rapport d'aspect
                 aspectRatio: 1.5, // Vous pouvez ajuster ce rapport d'aspect selon vos besoins
-                child: Container(
+                child: SizedBox(
                   width: double.infinity, // Prend toute la largeur disponible
                   child: Image.file(imageURI, fit: BoxFit.contain), // fit: BoxFit.contain pour s'assurer que l'image est entièrement visible
                 ),
