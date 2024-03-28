@@ -186,6 +186,8 @@ class _SelectionPageState extends State<SelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> lastFivePredictedImages = predictedImages.length > 5 ? predictedImages.sublist(predictedImages.length - 5) : predictedImages;
+
     final List<Widget> imageSliders = imgList
         .map((item) => Container(
               margin: const EdgeInsets.all(5.0),
@@ -310,6 +312,44 @@ class _SelectionPageState extends State<SelectionPage> {
                 ),
                 items: imageSliders,
               ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Text("Last Predictions:", style: Theme.of(context).textTheme.titleLarge),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HistoryPage()),
+                        );
+                      },
+                      child: const Text("View History"),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+              ),
+
+              // Afficher les 5 dernières images classifiées
+              SizedBox(
+                height: 100.0, // Définir une hauteur fixe pour le ListView
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: lastFivePredictedImages.length,
+                  itemBuilder: (context, index) {
+                    File imageFile = lastFivePredictedImages[index]['image'];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.file(imageFile, width: 100, height: 100),
+                    );
+                  },
+                ),
+              ),
+
               Row(
                 children: [
                   const Spacer(),
