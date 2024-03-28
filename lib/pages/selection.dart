@@ -278,7 +278,7 @@ class _SelectionPageState extends State<SelectionPage> {
                 children: [
                   const Spacer(),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Linkify(
                       onOpen: (link) async {
                         if (await canLaunchUrl(Uri.parse(link.url))) {
@@ -288,7 +288,8 @@ class _SelectionPageState extends State<SelectionPage> {
                         }
                       },
                       text:
-                          "Based on \"Rice Diseases\" : https://dicksonneoh.com",
+                      "Made by Hugo COLLIN : https://hugocollin.com\nBased on \"Rice Diseases\" : https://dicksonneoh.com",
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   const Spacer(),
